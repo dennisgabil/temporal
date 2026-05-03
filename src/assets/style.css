@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Commonwealth Bank Australia Beacon Sans';
+    src: local('Commonwealth Bank Australia Beacon Sans Regular'), local('Commonwealth-Bank-Australia-Beacon-Sans-Regular'),
+        url('CBABeaconSans-Regular.woff2') format('woff2'),
+        url('CBABeaconSans-Regular.woff') format('woff'),
+        url('CBABeaconSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }

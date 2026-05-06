@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-	activePage: 'Load Revenue',
+	activePage: 'Garnishee',
 }
 
 export default (state = INITIAL_STATE, action={}) => {

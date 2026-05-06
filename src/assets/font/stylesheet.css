@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'CBA Beacon Sans';
+    src: url('CBABeaconSans-Bold.eot');
+    src: local('CBA Beacon Sans Bold'), local('CBABeaconSans-Bold'),
+        url('CBABeaconSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('CBABeaconSans-Bold.woff2') format('woff2'),
+        url('CBABeaconSans-Bold.woff') format('woff'),
+        url('CBABeaconSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CBA Beacon Sans';
+    src: url('CBABeaconSans-Italic.eot');
+    src: local('CBA Beacon Sans Italic'), local('CBABeaconSans-Italic'),
+        url('CBABeaconSans-Italic.eot?#iefix') format('embedded-opentype'),
+        url('CBABeaconSans-Italic.woff2') format('woff2'),
+        url('CBABeaconSans-Italic.woff') format('woff'),
+        url('CBABeaconSans-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CBA Beacon Sans Extra';
+    src: url('CBABeaconSans-ExtraBoldItalic.eot');
+    src: local('CBA Beacon Sans Extra Bold Italic'), local('CBABeaconSans-ExtraBoldItalic'),
+        url('CBABeaconSans-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('CBABeaconSans-ExtraBoldItalic.woff2') format('woff2'),
+        url('CBABeaconSans-ExtraBoldItalic.woff') format('woff'),
+        url('CBABeaconSans-ExtraBoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CBA Beacon Sans Extra';
+    src: url('CBABeaconSans-ExtraBold.eot');
+    src: local('CBA Beacon Sans Extra Bold'), local('CBABeaconSans-ExtraBold'),
+        url('CBABeaconSans-ExtraBold.eot?#iefix') format('embedded-opentype'),
+        url('CBABeaconSans-ExtraBold.woff2') format('woff2'),
+        url('CBABeaconSans-ExtraBold.woff') format('woff'),
+        url('CBABeaconSans-ExtraBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CBA Beacon Sans';
+    src: url('CBABeaconSans-Regular.eot');
+    src: local('CBA Beacon Sans Regular'), local('CBABeaconSans-Regular'),
+        url('CBABeaconSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('CBABeaconSans-Regular.woff2') format('woff2'),
+        url('CBABeaconSans-Regular.woff') format('woff'),
+        url('CBABeaconSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CBA Beacon Sans';
+    src: url('CBABeaconSans-BoldItalic.eot');
+    src: local('CBA Beacon Sans Bold Italic'), local('CBABeaconSans-BoldItalic'),
+        url('CBABeaconSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('CBABeaconSans-BoldItalic.woff2') format('woff2'),
+        url('CBABeaconSans-BoldItalic.woff') format('woff'),
+        url('CBABeaconSans-BoldItalic.ttf') format('truetype');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+

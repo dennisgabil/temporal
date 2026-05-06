@@ -38,9 +38,9 @@ function App() {
             <Link
               to="/"
               onClick={clickLink}
-              className={active == "Load Revenue" ? "active" : ""}
+              className={active == "Garnishee" ? "active" : ""}
             >
-              Load Revenue
+              Garnishee
             </Link>{" "}
             &nbsp; &nbsp;{" "}
             <Link
@@ -52,11 +52,11 @@ function App() {
             </Link>{" "}
             &nbsp; &nbsp;{" "}
             <Link
-              to="/hold-amount"
+              to="/results"
               onClick={clickLink}
-              className={active == "Hold Amount" ? "active" : ""}
+              className={active == "Results" ? "active" : ""}
             >
-              Hold Amount
+              Results
             </Link>{" "}
             &nbsp; &nbsp;
             <Link
@@ -74,7 +74,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/hold-amount" element={<HoldAmount />} />
+            <Route path="/results" element={<HoldAmount />} />
             <Route path="/agents" element={<Agents />} />
             <Route path="/workflow" element={<Workflow />} />
           </Routes>

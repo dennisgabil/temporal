@@ -12,7 +12,7 @@ function App() {
   const data = useSelector((state) => state.users);
 
   useEffect(() => {
-    dispatch(setActivePage("Hold Amount"));
+    dispatch(setActivePage("Results"));
   }, [data, dispatch]);
 
   const downloadFile = () => {

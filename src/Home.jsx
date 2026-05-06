@@ -45,7 +45,7 @@ function App() {
     };
 
     const toHoldAmount = () => {
-      dispatch(setActivePage("Hold Amount"));
+      dispatch(setActivePage("Results"));
     };
 
     return (
@@ -98,7 +98,7 @@ function App() {
                   cursor: 'pointer'
                 }}
               >
-                <Link to="/hold-amount" onClick={toHoldAmount}>
+                <Link to="/results" onClick={toHoldAmount}>
                 Proceed
               </Link>
             </button>

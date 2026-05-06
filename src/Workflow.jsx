@@ -13,31 +13,31 @@ export default function BasicChart() {
   const dataset = [
     {
       activity_name: "fetch_file_from_s3",
-      attempt: Math.random() * 20,
-      start_time_offset_ms: Math.random() * 90,
-      end_time_offset_ms: Math.random() * 75,
-      duration_ms: Math.random() * 50,
+      attempt: 56,
+      start_time_offset_ms: 80,
+      end_time_offset_ms: 75,
+      duration_ms: 50,
     },
     {
       activity_name: "validate_csv_file",
-      attempt: Math.random() * 30,
-      start_time_offset_ms: Math.random() * 90,
-      end_time_offset_ms: Math.random() * 75,
-      duration_ms: Math.random() * 50,
+      attempt: 44,
+      start_time_offset_ms: 70,
+      end_time_offset_ms: 27,
+      duration_ms: 88,
     },
     {
       activity_name: "read_cqv",
-      attempt: Math.random() * 50,
-      start_time_offset_ms: Math.random() * 90,
-      end_time_offset_ms: Math.random() * 75,
-      duration_ms: Math.random() * 50,
+      attempt: 30,
+      start_time_offset_ms: 68,
+      end_time_offset_ms: 45,
+      duration_ms: 66,
     },
     {
       activity_name: "enrich_with_cif_codes",
-      attempt: Math.random() * 30,
-      start_time_offset_ms: Math.random() * 90,
-      end_time_offset_ms: Math.random() * 75,
-      duration_ms: Math.random() * 50,
+      attempt: 20,
+      start_time_offset_ms: 70,
+      end_time_offset_ms: 85,
+      duration_ms: 50,
     },
   ];
 
@@ -121,7 +121,7 @@ export default function BasicChart() {
             borderRadius: "8px",
             marginTop: '20px',
             cursor: 'pointer'
-          }} onClick={submitQuery}>SUBMIT</button>
+          }} onClick={submitQuery}>Submit</button>
         </div>
 
 
@@ -154,7 +154,7 @@ export default function BasicChart() {
                   <td>{item.workflow_id}</td>
                   <td>
                     <a
-                      href={`http://localhost:8233/namespaces/default/workflows/extracting_users-users_info.csv/${item.run_id}/history`}
+                      href={`http://localhost:8233/namespaces/default/workflows/extracting_users-hold_amount_with_cif_codes.csv/${item.run_id}/history`}
                       target="_blank"
                     >
                       {item.run_id}

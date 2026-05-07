@@ -154,7 +154,7 @@ export default function BasicChart() {
                   <td>{item.workflow_id}</td>
                   <td>
                     <a
-                      href={`http://localhost:8233/namespaces/default/workflows/extracting_users-hold_amount_with_cif_codes.csv/${item.run_id}/history`}
+                      href={`http://localhost:8233/namespaces/default/workflows/${item.workflow_id}/${item.run_id}/history`}
                       target="_blank"
                     >
                       {item.run_id}

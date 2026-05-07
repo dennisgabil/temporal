@@ -1,11 +1,38 @@
 import { useState, useEffect } from "react";
-import "./App.css";
+import "./Home.css";
 import { ToastContainer, toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { setUsers } from "./redux/actions/users";
 import { setActivePage } from "./redux/actions/active";
+
+const PRODUCTS = ["Personal Loan", "Home Loan", "Credit Card Loan"];
+
+function getRandomCustomerStatus() {
+  const statuses = ["Found", "Not Found"];
+  return statuses[Math.floor(Math.random() * statuses.length)];
+}
+
+function getRandomPaymentStatus() {
+  const statuses = ["Paid", "Unpaid"];
+  return statuses[Math.floor(Math.random() * statuses.length)];
+}
+
+function getRandomProduct() {
+  return PRODUCTS[Math.floor(Math.random() * PRODUCTS.length)];
+}
+
+const BADGE_CLASS = {
+  Found:       "badge badge-found",
+  "Not Found": "badge badge-not-found",
+  Paid:        "badge badge-paid",
+  Unpaid:      "badge badge-unpaid",
+};
+
+const Badge = ({ value }) => (
+  <span className={BADGE_CLASS[value] ?? "badge"}>{value}</span>
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -15,7 +42,19 @@ function App() {
   const [submitClicked, setSubmitClicked] = useState(false);
 
   useEffect(() => {
-    // dispatch(setActivePageData('Hold Amount'));
+    fetch("/sample_record_100.json")
+      .then((res) => res.json())
+      .then((data) =>
+        setEnrichedData(
+          data.map((item) => ({
+            ...item,
+            customer_status: getRandomCustomerStatus(),
+            payment_status:  getRandomPaymentStatus(),
+            product:         getRandomProduct(),
+          }))
+        )
+      )
+      .catch((err) => console.error("Failed to load sample data:", err));
   }, []);
 
   const handleFileUpload = (e) => {
@@ -23,125 +62,92 @@ function App() {
   };
 
   const uploadFile = () => {
-    // console.log(fileDetails[0]);
-
     const formData = new FormData();
     formData.append("file", fileDetails[0]);
 
     fetch("http://localhost:8000/put-amount-on-hold", {
-      method: "POST", // Specifies the HTTP method
+      method: "POST",
       body: formData,
     })
-      .then((response) => response.json()) // Parses response body as JSON
+      .then((response) => response.json())
       .then((data) => {
-        console.log(data?.message);
-        setEnrichedData(data?.enriched_data);
+        // setEnrichedData(data?.enriched_data);
+        setEnrichedData(
+          data.map((item) => ({
+            ...item,
+            customer_status: getRandomCustomerStatus(),
+            payment_status:  getRandomPaymentStatus(),
+            product:         getRandomProduct(),
+          }))
+        )
         dispatch(setUsers(data?.enriched_data));
         toast.success(data.message);
-      }) // Handles the result
+      })
       .catch((error) => console.error("Error:", error));
 
-      setSubmitClicked(true);
-    };
+    setSubmitClicked(true);
+  };
 
-    const toHoldAmount = () => {
-      dispatch(setActivePage("Results"));
-    };
+  const toHoldAmount = () => {
+    dispatch(setActivePage("Results"));
+  };
 
-    return (
-      <div>
-        <div
-          style={{
-            width: "600px",
-            height: "auto",
-            backgroundColor: "#fff",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            marginBottom: "20px",
-          }}
-        >
-          <input
-            type="file"
-            id="myFile"
-            name="filename"
-            accept=".csv, text/csv, application/vnd.ms-excel"
-            onChange={handleFileUpload}
-            style={{ display: "block", marginTop: "20px" }}
-          />
-          <br />
-          <div className="button-container">
-            {!submitClicked && (
-              <button
-                onClick={uploadFile}
-                style={{
-                  backgroundColor: "#fc0",
-                  color: "#000",
-                  padding: "6px 20px",
-                  border: "0",
-                  borderRadius: "8px",
-                  cursor: 'pointer'
-                }}
-              >
-                Submit
-              </button>
-              )}
-            {submitClicked && (
-              <button
-                style={{
-                  backgroundColor: "#fc0",
-                  color: "#000",
-                  padding: "6px 20px",
-                  border: "0",
-                  borderRadius: "8px",
-                  cursor: 'pointer'
-                }}
-              >
-                <Link to="/results" onClick={toHoldAmount}>
-                Proceed
-              </Link>
+  return (
+    <div>
+      <div className="home-wrapper">
+        <input
+          type="file"
+          id="myFile"
+          name="filename"
+          accept=".csv, text/csv, application/vnd.ms-excel"
+          onChange={handleFileUpload}
+          className="file-input"
+        />
+        <br />
+        <div className="button-container">
+          {!submitClicked && (
+            <button className="btn" onClick={uploadFile}>
+              Submit
             </button>
-            )}
-          </div>
-          <ToastContainer type="success" theme="light" autoClose={3000} />
-          <br />
-          {enrichedData && (
-            <table
-              border="1"
-              cellPadding="5"
-              style={{
-                width: "97%",
-                textAlign: "left",
-                marginBottom: "20px",
-                fontSize: "12px",
-                borderCollapse: "collapse",
-              }}
-            >
+          )}
+          {submitClicked && (
+            <button className="btn">
+              <Link to="/results" onClick={toHoldAmount}>Proceed</Link>
+            </button>
+          )}
+        </div>
+        <ToastContainer type="success" theme="light" autoClose={3000} />
+        <br />
+        {enrichedData && (
+          <div className="table-wrapper">
+            <table className="data-table" cellPadding="0" cellSpacing="0">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Address</th>
-                  <th>Birth Date</th>
+                  {["#", "Name", "Address", "Birth Date", "Hold Amount", "Product", "Customer Status", "Payment Status"].map((h) => (
+                    <th key={h}>{h}</th>
+                  ))}
                 </tr>
               </thead>
               <tbody>
-                {enrichedData &&
-                enrichedData.map((item) => (
+                {enrichedData.map((item, idx) => (
                   <tr key={item.cif_code}>
-                    <td>
-                      {item?.first_name} {item?.last_name}
-                    </td>
-                    <td>{item?.address}</td>
-                    <td>{moment(item?.dob).format("DD MMM, YYYY")}</td>
+                    <td className="td-index">{idx + 1}</td>
+                    <td className="td-name">{item?.first_name} {item?.last_name}</td>
+                    <td className="td-address">{item?.address}</td>
+                    <td className="td-date">{moment(item?.dob).format("DD MMM, YYYY")}</td>
+                    <td className="td-amount">$ {item?.hold_amount?.toLocaleString()}</td>
+                    <td className="td-product">{item?.product}</td>
+                    <td><Badge value={item?.customer_status} /></td>
+                    <td><Badge value={item?.payment_status} /></td>
                   </tr>
-                  ))}
+                ))}
               </tbody>
             </table>
-            )}
-        </div>
+          </div>
+        )}
       </div>
-      );
-  }
+    </div>
+  );
+}
 
-  export default App;
+export default App;

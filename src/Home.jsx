@@ -40,6 +40,12 @@ function App() {
   const [fileDetails, setFileDetails] = useState(null);
   const [enrichedData, setEnrichedData] = useState(null);
   const [submitClicked, setSubmitClicked] = useState(false);
+  const [filters, setFilters] = useState({
+    name: "",
+    product: "",
+    customer_status: "",
+    payment_status: "",
+  });
 
   useEffect(() => {
     fetch("/sample_record_100.json")
@@ -92,6 +98,19 @@ function App() {
     dispatch(setActivePage("Results"));
   };
 
+  const setFilter = (key, value) =>
+    setFilters((prev) => ({ ...prev, [key]: value }));
+
+  const filteredData = enrichedData?.filter((item) => {
+    const fullName = `${item.first_name} ${item.last_name}`.toLowerCase();
+    return (
+      (!filters.name || fullName.includes(filters.name.toLowerCase())) &&
+      (!filters.product || item.product === filters.product) &&
+      (!filters.customer_status || item.customer_status === filters.customer_status) &&
+      (!filters.payment_status || item.payment_status === filters.payment_status)
+    );
+  });
+
   return (
     <div>
       <div className="home-wrapper">
@@ -119,31 +138,74 @@ function App() {
         <ToastContainer type="success" theme="light" autoClose={3000} />
         <br />
         {enrichedData && (
-          <div className="table-wrapper">
-            <table className="data-table" cellPadding="0" cellSpacing="0">
-              <thead>
-                <tr>
-                  {["#", "Name", "Address", "Birth Date", "Hold Amount", "Product", "Customer Status", "Payment Status"].map((h) => (
-                    <th key={h}>{h}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {enrichedData.map((item, idx) => (
-                  <tr key={item.cif_code}>
-                    <td className="td-index">{idx + 1}</td>
-                    <td className="td-name">{item?.first_name} {item?.last_name}</td>
-                    <td className="td-address">{item?.address}</td>
-                    <td className="td-date">{moment(item?.dob).format("DD MMM, YYYY")}</td>
-                    <td className="td-amount">$ {item?.hold_amount?.toLocaleString()}</td>
-                    <td className="td-product">{item?.product}</td>
-                    <td><Badge value={item?.customer_status} /></td>
-                    <td><Badge value={item?.payment_status} /></td>
+          <>
+            <div className="filter-bar">
+              <input
+                className="filter-input"
+                type="text"
+                placeholder="Search by name…"
+                value={filters.name}
+                onChange={(e) => setFilter("name", e.target.value)}
+              />
+              <select
+                className="filter-select"
+                value={filters.product}
+                onChange={(e) => setFilter("product", e.target.value)}
+              >
+                <option value="">All Products</option>
+                {PRODUCTS.map((p) => <option key={p} value={p}>{p}</option>)}
+              </select>
+              <select
+                className="filter-select"
+                value={filters.customer_status}
+                onChange={(e) => setFilter("customer_status", e.target.value)}
+              >
+                <option value="">All Customer Status</option>
+                <option value="Found">Found</option>
+                <option value="Not Found">Not Found</option>
+              </select>
+              <select
+                className="filter-select"
+                value={filters.payment_status}
+                onChange={(e) => setFilter("payment_status", e.target.value)}
+              >
+                <option value="">All Payment Status</option>
+                <option value="Paid">Paid</option>
+                <option value="Unpaid">Unpaid</option>
+              </select>
+            </div>
+            <div className="table-wrapper">
+              <table className="data-table" cellPadding="0" cellSpacing="0">
+                <thead>
+                  <tr>
+                    {["#", "Name", "Address", "Birth Date", "Hold Amount", "Product", "Customer Status", "Payment Status"].map((h) => (
+                      <th key={h}>{h}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {filteredData.length === 0 ? (
+                    <tr>
+                      <td colSpan={8} className="td-empty">No records match the selected filters.</td>
+                    </tr>
+                  ) : (
+                    filteredData.map((item, idx) => (
+                      <tr key={item.cif_code}>
+                        <td className="td-index">{idx + 1}</td>
+                        <td className="td-name">{item?.first_name} {item?.last_name}</td>
+                        <td className="td-address">{item?.address}</td>
+                        <td className="td-date">{moment(item?.dob).format("DD MMM, YYYY")}</td>
+                        <td className="td-amount">$ {item?.hold_amount?.toLocaleString()}</td>
+                        <td className="td-product">{item?.product}</td>
+                        <td><Badge value={item?.customer_status} /></td>
+                        <td><Badge value={item?.payment_status} /></td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </>
         )}
       </div>
     </div>

@@ -124,3 +124,44 @@
   background: #fde8e8;
   color: #b91c1c;
 }
+
+.filter-bar {
+  width: 97%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.filter-input,
+.filter-select {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 12px;
+  background: #fff;
+  color: #111;
+  outline: none;
+}
+
+.filter-input {
+  flex: 1;
+  min-width: 160px;
+}
+
+.filter-select {
+  min-width: 150px;
+}
+
+.filter-input:focus,
+.filter-select:focus {
+  border-color: #fc0;
+  box-shadow: 0 0 0 2px rgba(255, 204, 0, 0.25);
+}
+
+.td-empty {
+  text-align: center;
+  color: #9ca3af;
+  padding: 24px;
+  font-size: 13px;
+}

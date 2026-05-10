@@ -4,7 +4,7 @@ import "./App.css";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./Home";
 import Agents from "./Agents";
-import HoldAmount from "./HoldAmount";
+import Result from "./Results";
 import Workflow from "./Workflow";
 import cbaImg from "./assets/commBank-logo.svg";
 import { useSelector, useDispatch } from "react-redux";
@@ -74,7 +74,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/results" element={<HoldAmount />} />
+            <Route path="/results" element={<Result />} />
             <Route path="/agents" element={<Agents />} />
             <Route path="/workflow" element={<Workflow />} />
           </Routes>

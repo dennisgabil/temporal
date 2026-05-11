@@ -12,6 +12,8 @@ const BADGE_CLASS = {
   "Not Found": "badge badge-not-found",
   Paid: "badge badge-paid",
   Unpaid: "badge badge-unpaid",
+  Yes: "badge badge-not-found",
+  No: "badge badge-found",
 };
 
 const Badge = ({ value }) => (
@@ -24,6 +26,8 @@ const normalize = (val) => {
   if (!val || typeof val !== "string") return val;
   return val.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 };
+
+const getRandomDefaulter = () => (Math.random() < 0.5 ? "Yes" : "No");
 
 function App() {
   const dispatch = useDispatch();
@@ -52,6 +56,7 @@ function App() {
           customer_status: normalize(item.customer_status),
           payment_status: normalize(item.payment_status),
           product: normalize(item.product),
+          defaulter: getRandomDefaulter(),
         }));
       if (arr.length > 0) setEnrichedData(arr);
     }
@@ -104,7 +109,7 @@ function App() {
     <>
       <div
         style={{
-          width: "700px",
+          width: "100%",
           height: "auto",
           backgroundColor: "#fff",
           display: "flex",
@@ -183,6 +188,7 @@ function App() {
                       "Hold Amount",
                       "Product",
                       "Payment Status",
+                      "Defaulter"
                     ].map((h) => (
                       <th key={h}>{h}</th>
                     ))}
@@ -191,7 +197,7 @@ function App() {
                 <tbody>
                   {filteredData.length === 0 ? (
                     <tr>
-                      <td colSpan={8} className="td-empty">
+                      <td colSpan={9} className="td-empty">
                         No records match the selected filters.
                       </td>
                     </tr>
@@ -225,6 +231,9 @@ function App() {
                               {checkingStatus[item.cif_code] ? <Spinner /> : "↻"}
                             </button>
                           )}
+                        </td>
+                        <td>
+                          <Badge value={item?.defaulter} />
                         </td>
                       </tr>
                     ))
